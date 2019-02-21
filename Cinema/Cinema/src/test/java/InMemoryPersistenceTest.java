@@ -47,7 +47,7 @@ public class InMemoryPersistenceTest {
 		funciones.add(function2);
 		funciones.add(function3);
 
-		Cinema c = new Cinema("CineColombia", funciones);
+		Cinema c = new Cinema("Cine Colombia", funciones);
 
 		assertEquals(funciones, c.getFunctions());
 
@@ -60,7 +60,7 @@ public class InMemoryPersistenceTest {
 		}
 
 		boolean igual = true;
-		List<CinemaFunction> funcionesProbadas = ipct.getFunctionsbyCinemaAndDate("CineColombia", "07/05/2019");
+		List<CinemaFunction> funcionesProbadas = ipct.getFunctionsbyCinemaAndDate("Cine Colombia", "07/05/2019");
 		for (int i = 0; i < funcionesProbadas.size() && igual; i++) {
 			String cine1 = funcionesProbadas.get(i).getMovie().getName();
 			String cine2 = funciones.get(i).getMovie().getName();
@@ -130,7 +130,7 @@ public class InMemoryPersistenceTest {
 
 		funciones.add(function);
 
-		Cinema c = new Cinema("CineColombia", funciones);
+		Cinema c = new Cinema("Cine Colombia", funciones);
 		InMemoryCinemaPersistence cine = new InMemoryCinemaPersistence();
 		try {
 			cine.saveCinema(c);
@@ -139,8 +139,8 @@ public class InMemoryPersistenceTest {
 			e.printStackTrace();
 		}
 		try {
-			Cinema cinemaPrueba = cine.getCinema("CineColombia");
-			assertEquals(cinemaPrueba.getName(), "CineColombia");
+			Cinema cinemaPrueba = cine.getCinema("Cine Colombia");
+			assertEquals(cinemaPrueba.getName(), "Cine Colombia");
 		} catch (CinemaPersistenceException e) {
 			assertFalse(true);
 			e.printStackTrace();
@@ -163,7 +163,7 @@ public class InMemoryPersistenceTest {
 		funciones.add(function1);
 		funciones.add(function2);
 		funciones.add(function3);
-		Cinema c = new Cinema("CineColombia", funciones);
+		Cinema c = new Cinema("Cine Colombia", funciones);
 		InMemoryCinemaPersistence cine = new InMemoryCinemaPersistence();
 		try {
 			cine.saveCinema(c);
@@ -173,19 +173,65 @@ public class InMemoryPersistenceTest {
 		}
 
 		try {
-			cine.buyTicket(1, 1, "CineColombia", "02/02/2019", "graduarse");
+			cine.buyTicket(1, 1, "Cine Colombia", "02/02/2019", "graduarse");
 		} catch (CinemaException e) {
 			assertFalse(true);
 			e.printStackTrace();
 		}
 
 		try {
-			cine.buyTicket(1, 1, "CineColombia", "02/02/2019", "graduarse");
+			cine.buyTicket(1, 1, "Cine Colombia", "02/02/2019", "graduarse");
 		} catch (CinemaException e) {
 			assertTrue(true);
 
 		}
+		
+		
 
+	}
+	
+	
+	
+	@Test
+	public void filter() {
+		List<CinemaFunction> funciones = new ArrayList<CinemaFunction>();
+
+		Movie movie1 = new Movie("aprueba", "Drama");
+		CinemaFunction function = new CinemaFunction(movie1, "02/02/2019");
+		Movie movie2 = new Movie("trampa", "Accion");
+		CinemaFunction function1 = new CinemaFunction(movie2, "02/02/2019");
+		Movie movie3 = new Movie("examen", "Drama");
+		CinemaFunction function2 = new CinemaFunction(movie3, "02/02/2019");
+		Movie movie4 = new Movie("graduarse", "scifi");
+		CinemaFunction function3 = new CinemaFunction(movie4, "02/02/2019");
+		funciones.add(function);
+		funciones.add(function1);
+		funciones.add(function2);
+		funciones.add(function3);
+		Cinema c = new Cinema("Cine Colombia", funciones);
+		InMemoryCinemaPersistence cine = new InMemoryCinemaPersistence();
+		try {
+			cine.saveCinema(c);
+		} catch (CinemaPersistenceException e) {
+			assertFalse(true);
+			e.printStackTrace();
+		}
+		
+		try {
+			System.out.println("feqwffqfqwwqfwqf");
+			System.out.println(cine.fil().getClass());
+			List<Movie> filtrado = cine.filter("Cine Colombia", "02/02/2019", "Accion");
+			assertTrue(filtrado.size()==1);
+			if(!(filtrado.get(0).getName().equals("trampa"))) {
+				assertFalse(true);
+			}
+			else {
+				assertFalse(false);
+			}
+		}catch (CinemaPersistenceException e) {
+			assertFalse(true);
+			e.printStackTrace();
+		}
 	}
 
 }

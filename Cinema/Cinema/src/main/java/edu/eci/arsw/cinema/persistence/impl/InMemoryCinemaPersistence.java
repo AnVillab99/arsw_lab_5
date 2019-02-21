@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.cinema.persistence.impl;
 
+import edu.eci.arsw.cinema.filters.Filtro;
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
@@ -16,17 +17,34 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author cristian
  */
+
 @Service
 public class InMemoryCinemaPersistence implements CinemaPersitence {
 
 	private final Map<String, Cinema> cinemas = new HashMap<>();
-
+	
+	
+	@Autowired
+	public Filtro filtro;
+	
+	public void setFiltro(@Qualifier("filtroG") Filtro fil) {
+		System.out.println("poniendo filtro");
+		System.out.println(fil.getClass());
+		filtro=fil;
+	}
+	
+	public Filtro fil() {
+		return filtro;
+	}
+	
 	public InMemoryCinemaPersistence() {
 		// load stub data
 		String functionDate = "2018-12-18 15:30";
@@ -93,5 +111,15 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 	public Cinema getCinema(String name) throws CinemaPersistenceException {
 		return cinemas.get(name);
 	}
-
+	
+	public Map<String, Cinema> getCinemas() {
+		return cinemas;
+	}
+	
+	
+    @Override
+    public List<Movie> filter(String cinema, String date, String filter) throws CinemaPersistenceException {
+    	System.out.println(filtro.getClass());
+        return filtro.filter(getCinema(cinema), date, filter);
+    }
 }

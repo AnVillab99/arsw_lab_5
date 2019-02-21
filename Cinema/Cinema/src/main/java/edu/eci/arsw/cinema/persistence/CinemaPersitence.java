@@ -7,7 +7,10 @@ package edu.eci.arsw.cinema.persistence;
 
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
+import edu.eci.arsw.cinema.model.Movie;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -50,5 +53,9 @@ public interface CinemaPersitence {
      * @throws  CinemaPersistenceException if there is no such cinema
      */
     public Cinema getCinema(String name) throws CinemaPersistenceException;
+
+	public Map<String, Cinema> getCinemas();
+
+	List<Movie> filter(String cinema, String date, String filter) throws CinemaPersistenceException;
     
 }
