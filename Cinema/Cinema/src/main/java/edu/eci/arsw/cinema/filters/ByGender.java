@@ -10,7 +10,7 @@ import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
 //@Service
-@Component("filtroG")
+//@Service
 public class ByGender implements Filtro {
 
 	@Override

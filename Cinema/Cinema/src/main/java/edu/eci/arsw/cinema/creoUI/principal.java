@@ -68,8 +68,48 @@ public class principal {
 
 			System.out.println("             Comprar tickets");
 			cs.buyTicket(0, 0, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(0, 1, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(0, 2, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(0, 3, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(0, 4, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(0, 5, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(1, 0, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(2, 0, "Cine Colombia", "02/02/2019", "examen");
+			cs.buyTicket(3, 0, "Cine Colombia", "02/02/2019", "examen");
 			System.out.println("Comprado");
-
+			
+			 
+            /*
+            System.out.println("              Filtro genero");
+            List<Movie> filtrado = cs.filter("Cine Colombia", "02/02/2019", "Accion");        
+            if(filtrado.size()==1) {
+            	System.out.println("Peliculas con genero Accion son: ");
+            	for(Movie m:filtrado) {
+            		System.out.println(m.getName());
+            	}
+            }
+             else {
+            	System.out.println("Error en el filtro generos");
+            }
+            
+            */
+           
+            System.out.println("                        Filtro por disponibilidad ");                 
+                       
+            List<Movie> filtrado = cs.filter("Cine Colombia", "02/02/2019", "80");     
+           
+            if(filtrado.size()==2) {
+            	System.out.println("Peliculas con mas de 80 asientos son: ");
+            	for(Movie m:filtrado) {
+            		System.out.println(m.getName());
+            	}
+            }
+            else {
+            	System.out.println("Error en el filtro disponibilidad");
+            }
+            
+            
+            
 		} catch (CinemaException ex) {
 			System.out.println(ex.getMessage());
 		} catch (CinemaPersistenceException e) {

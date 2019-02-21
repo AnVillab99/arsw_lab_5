@@ -35,9 +35,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 	@Autowired
 	public Filtro filtro;
 	
-	public void setFiltro(@Qualifier("filtroG") Filtro fil) {
-		System.out.println("poniendo filtro");
-		System.out.println(fil.getClass());
+	public void setFiltro(Filtro fil) {
 		filtro=fil;
 	}
 	
@@ -119,7 +117,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 	
     @Override
     public List<Movie> filter(String cinema, String date, String filter) throws CinemaPersistenceException {
-    	System.out.println(filtro.getClass());
+    	
         return filtro.filter(getCinema(cinema), date, filter);
     }
 }
